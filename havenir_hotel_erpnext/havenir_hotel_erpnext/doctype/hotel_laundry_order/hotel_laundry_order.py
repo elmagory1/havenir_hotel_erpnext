@@ -22,6 +22,7 @@ class HotelLaundryOrder(Document):
     doc = frappe.get_doc('Hotel Laundry Order', self.name)
     doc.db_set('status','Cancelled')
 
+@frappe.whitelist()    
 def set_status(self):
   if self.order_type == 'Room':
       self.status = 'To Check Out'
@@ -33,6 +34,7 @@ def set_status(self):
       doc = frappe.get_doc('Hotel Laundry Order', self.name)
       doc.db_set('status','Completed')
 
+ @frappe.whitelist()     
 def create_invoice(self):
     company = frappe.get_doc('Company', self.company)
     if self.order_type == 'Hotel':
@@ -59,6 +61,7 @@ def create_invoice(self):
       # Creating Sales Invoice 
       create_sales_invoice(self, customer = 'Staff Entertainment', company = company, remarks= remarks)
 
+ @frappe.whitelist()     
 def create_sales_invoice(self, customer, company, check_in_id = None, remarks = None):
     sales_invoice_doc = frappe.new_doc('Sales Invoice')
     sales_invoice_doc.discount_amount = 0
