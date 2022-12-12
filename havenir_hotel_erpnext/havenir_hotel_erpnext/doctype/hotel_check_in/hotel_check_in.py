@@ -33,7 +33,7 @@ class HotelCheckIn(Document):
             room_doc = frappe.get_doc('Rooms', room.room_no)
             room_doc.db_set('check_in_id', None)
             room_doc.db_set('room_status', 'Available')
-
+    @frappe.whitelist()
     def get_room_price(self, room):
         room_price = frappe.get_value('Rooms', {
             'room_number': room
@@ -41,7 +41,7 @@ class HotelCheckIn(Document):
             'price'
         ])
         return room_price
-
+@frappe.whitelist()
 def send_payment_sms(self):
     sms_settings = frappe.get_doc('SMS Settings')
     if sms_settings.sms_gateway_url:
