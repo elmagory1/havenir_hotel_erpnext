@@ -34,7 +34,7 @@ def set_status(self):
       doc = frappe.get_doc('Hotel Laundry Order', self.name)
       doc.db_set('status','Completed')
 
- @frappe.whitelist()     
+ @frappe.whitelist()
 def create_invoice(self):
     company = frappe.get_doc('Company', self.company)
     if self.order_type == 'Hotel':
